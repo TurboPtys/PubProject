@@ -1,0 +1,267 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #000000;
+    color: white;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+.not-round {
+    border-radius: 0;
+}
+
+.input {
+    margin-bottom: 8px;
+}
+
+.page-background {
+    width: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.content {
+    
+}
+
+/*Home Page*/
+
+.board {
+    margin: 5% 0;
+}
+
+.board-pic {
+    position: relative;
+}
+
+.pic-menu {
+    height: 520px;
+    width: 100%;
+    filter: brightness(50%);
+
+}
+
+.menu {
+    font-size: 60px;
+    font-weight: 800;
+    /*color: #ff5917;*/
+    color: #CCCCCC;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    padding: 8px 12px;
+}
+
+.board-menu{
+    margin: 5% 0;
+}
+
+.img-box {
+    width: 320px;
+    height: 150px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.img-responsive {
+    width: 100%;
+    max-height: 150px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.card {
+    margin: 1% 1%;
+    background-color: #1C1C1C;
+    width:320px;
+}
+
+.row-flex {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    /*background-color: #444444;*/
+}
+
+.card-header {
+    padding: 0 12px;
+    margin-bottom: 0;
+    margin-top: 8px;
+}
+
+.venue-name {
+    /*color: #3B915F;*/
+    color: #CCCCCC;
+    font-weight: 800;
+}
+
+.venue-location {
+    color: #6CB0DD;
+}
+
+.advertise-rating {
+    color: #FF5917;
+    font-weight: 800;
+    padding-top: 5px;
+    font-size: 16px;
+}
+
+.advertise-title {
+    font-size: 16px;
+    font-weight:600;
+}
+
+.img-responsive-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    opacity: 0.8;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+}
+
+.img-box:hover .img-responsive-overlay {
+    height: 100%;
+}
+
+.img-responsive-overlay-text {
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    /*transform: translate(-50%, -50%);*/
+    text-align: center;
+}
+
+/*Login Page*/
+
+.login-page {
+    position:relative;
+}
+
+.login-form {
+    padding: 2% 3%;
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    /*transform: translate(0%, -25%);*/
+    /*
+    right: 0;
+    margin: 20px;
+    max-width: 300px;
+    padding: 16px;*/
+    background-color: #1C1C1C;
+}
+
+/*Register Page*/
+.register-page {
+    position: relative;
+}
+
+.register-form {
+    padding: 2% 3%;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0%);
+    margin-top: 75px;
+    background-color: #1C1C1C;
+}
+
+#RegCliBtn {
+    border-bottom: 8px solid #ffffff;
+}
+
+/*Venue Page*/
+
+.venue-item {
+    margin-top: 25px;
+}
+
+.venue-panel {
+    color: #C1C1C1;
+    margin-bottom: 20px;
+    background-color: #222;
+}
+
+.venue-panel img {
+    width: 100%;
+}
+
+.venue-info {
+    margin: 10px;
+}
+
+.venue-panel .row,
+.venue-panel .col-md-6 {
+    padding: 0;
+}
+
+.venue-panel .venue-row {
+    padding: 0 20px;
+}
+
+.venue-panel .venue-row.venue-header {
+    font-size: 12px;
+}
+
+.venue-panel .venue-row.venue-desc {
+    position: relative;
+    height: 100%;
+    display: block;
+    font-size: 13px;
+}
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.google-map {
+    margin-top: 30px;
+}
+ 
