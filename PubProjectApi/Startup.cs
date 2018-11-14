@@ -36,6 +36,7 @@ namespace PubProjectApi
             services.AddScoped<IGastronomicVenuesRepository, GastronomicVenuesRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             services.AddScoped<IAdvertisementService, AdvertisementService>();
+            services.AddScoped<IGastronomicVenuesService, GastronomicVenuesService>();
             services.AddMvc();
         }
 

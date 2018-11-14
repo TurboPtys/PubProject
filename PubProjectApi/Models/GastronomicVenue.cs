@@ -9,6 +9,7 @@ namespace PubProjectApi.Models
     {
         public Guid GastronomicVenueId { get; set; }
         public string GastronomicVenueName { get; set; }
+        public string GastronomicVenueDescription { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public int? HouseNr { get; set; }
@@ -16,6 +17,9 @@ namespace PubProjectApi.Models
         public string Phone { get; set; }
         public string Type { get; set; }
         public Boolean Active { get; set; }
+        public string PostCode { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         //godziny otwarcia
     }
 }
