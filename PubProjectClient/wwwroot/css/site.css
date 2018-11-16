@@ -52,10 +52,6 @@
     padding: 0;
 }
 
-.content {
-    
-}
-
 /*Home Page*/
 
 .board {
@@ -263,5 +259,13 @@
 
 .google-map {
     margin-top: 30px;
+}
+
+.venue-description {
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 262.5px;
+    padding-top: 10px;
 }
  

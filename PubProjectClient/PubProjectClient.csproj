@@ -22,4 +22,8 @@
     <ProjectReference Include="..\PubProjectApi\PubProjectApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Advert\" />
+  </ItemGroup>
+
 </Project>

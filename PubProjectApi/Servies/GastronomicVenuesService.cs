@@ -19,5 +19,10 @@ namespace PubProjectApi.Servies
         {
             return await _gastronomicVenuesRepository.GetAll();
         }
+
+        public async Task<GastronomicVenue> GetById(Guid id)
+        {
+            return await _gastronomicVenuesRepository.GetById(id);
+        }
     }
 }
