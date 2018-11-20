@@ -1,4 +1,5 @@
 ﻿using PubProjectApi.Models;
+using PubProjectApi.Models.ModelsView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace PubProjectApi.Servies
     {
         Task<IEnumerable<Advertisement>> GetAll();
         Task<IEnumerable<Advertisement>> GetByTag(string tag);
+        Task<List<AdvertisementListView>> GetAdvertsList();
     }
 }

@@ -9,5 +9,6 @@ namespace PubProjectApi.Servies
     public interface IGastronomicVenuesService
     {
         Task<IEnumerable<GastronomicVenue>> GetAll();
+        Task<GastronomicVenue> GetById(Guid id);
     }
 }

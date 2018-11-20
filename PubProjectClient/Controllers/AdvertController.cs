@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PubProjectApi.Models;
+using PubProjectApi.Models.ModelsView;
 
 namespace PubProjectClient.Controllers
 {
@@ -12,14 +12,23 @@ namespace PubProjectClient.Controllers
     {
         public IActionResult Index()
         {
-            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement/AdvertisementList";
             using (var client = new HttpClient())
             {
                 var resp = client.GetAsync(urlGeneratePdfPriceLists).GetAwaiter().GetResult();
                 string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                IEnumerable<Advertisement> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<Advertisement>>(mycontent);
+                IEnumerable<AdvertisementListView> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AdvertisementListView>>(mycontent);
                 return View(result);
             }
+
+            //IEnumerable<AdvertsListView> model;
+            //urlGeneratePdfPriceLists = "http://localhost:64832/api/GastronomicVenue/";
+            //using (var cilent= new HttpClient())
+            //{
+
+            //}
+
+            //return View(model);
         }
 
 

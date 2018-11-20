@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PubProjectApi.Models.ModelsView;
 using PubProjectApi.Repository.Interface;
 using PubProjectApi.Servies;
 
@@ -17,6 +18,15 @@ namespace PubProjectApi.Controllers
         public AdvertisementController(IAdvertisementService advertisementService)
         {
             _advertisementServiecs = advertisementService;
+        }
+
+        [HttpGet]
+        [Route("AdvertisementList")]
+        public async Task<IActionResult> AdvertisementList()
+        {
+            var adv = await _advertisementServiecs.GetAdvertsList();
+
+            return Ok(adv);
         }
 
         // GET: api/Advertisement

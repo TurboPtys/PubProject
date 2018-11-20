@@ -27,5 +27,13 @@ namespace PubProjectApi.Controllers
             var gastronomicVenues = await _gastronomicVenuesService.GetAll();
             return Ok(gastronomicVenues);
         }
+
+        // GET api/GastronomicVenue/5
+        [HttpGet("{id}")]
+        public IActionResult Get(Guid id)
+        {
+            var gastronomicVenue = _gastronomicVenuesService.GetById(id);
+            return Ok(gastronomicVenue);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PubProjectApi.Models.Advertisement>
+﻿@model List<PubProjectApi.Models.ModelsView.AdvertisementListView>
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,11 +19,14 @@
                             <img src="~/images/flame.png" width="25" /> 481
                         </div>
                     </div>
-                        <div class="col-lg-12 img-box">
-                            <img class="img-responsive" src="~/images/oo.png" alt="Card image cap">
+                    <div class="col-lg-12 img-box">
+                        <img class="img-responsive" src="~/images/oo.png" alt="Card image cap">
+                        <div class="img-responsive-overlay">
+                            <div class="img-responsive-overlay-text">@adv.Advertisement.Description</div>
                         </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title col-lg-12 advertise-title" align="center">Card title</h5>
+                        <h5 class="card-title col-lg-12 advertise-title" align="center">@adv.Advertisement.Title</h5>
                         @*<p class="card-text col-lg-12">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
                         @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
                     </div>
