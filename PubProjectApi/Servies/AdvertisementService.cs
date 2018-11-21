@@ -32,6 +32,11 @@ namespace PubProjectApi.Servies
             return (await _advertRepository.GetAll()).Where(x => x.Tag.Equals(tag)).ToList();
         }
 
+        public async Task<IEnumerable<Advertisement>> GetByVenue(Guid id)
+        {
+            return (await _advertRepository.GetAll()).Where(x => x.GastronomicVenueId.Equals(id)).ToList();
+        }
+
         public async Task<List<AdvertisementListView>> GetAdvertsList()
         {
             var adv = (await _advertRepository.GetAll());

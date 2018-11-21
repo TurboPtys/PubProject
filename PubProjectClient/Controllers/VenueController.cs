@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PubProjectApi.Models;
+using PubProjectApi.Models.ModelsView;
 
 namespace PubProjectClient.Controllers
 {
@@ -23,6 +24,19 @@ namespace PubProjectClient.Controllers
             }
 
            
+        }
+
+        public IActionResult Venue(Guid id)
+        {
+
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/GastronomicVenue/"+id.ToString();
+            using (var client = new HttpClient())
+            {
+                var resp = client.GetAsync(urlGeneratePdfPriceLists).GetAwaiter().GetResult();
+                string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                GastronomicVenueView result = Newtonsoft.Json.JsonConvert.DeserializeObject<GastronomicVenueView>(mycontent);
+                return View(result);
+            }
         }
     }
 }

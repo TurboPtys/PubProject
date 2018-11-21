@@ -1,0 +1,71 @@
+﻿@model PubProjectApi.Models.ModelsView.GastronomicVenueView
+@{
+    ViewData["Title"] = "Venue";
+}
+
+@Model.GastronomicVenue.City
+
+
+<div class="col-xs-10 col-xs-offset-1">
+    <div class="row upperpanel">
+        <div class="col-xs-5 no-padding">
+            <img class="ii" src="~/images/Bar/2.jpg" />
+        </div>
+        <div class="col-xs-7 venue-panel-info">
+            <div class="row">
+                <div class="col-xs-8">@Model.GastronomicVenue.GastronomicVenueName</div>
+                <div class="col-xs-4">@Model.Grade</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 venue-description">
+                    @Model.GastronomicVenue.GastronomicVenueDescription
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row middlepanel">
+        <div class="col-xs-8 no-padding venue-location-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.8358264474587!2d17.056420615961386!3d51.11148914739353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fe9d4c574faf7%3A0x64386146fc5c650a!2sRemont+Bar!5e0!3m2!1spl!2spl!4v1541940244219" frameborder="0" style="border:0; width:100%; height:350px;" allowfullscreen></iframe>
+        </div>
+        <div class="col-xs-4">
+            <div class="col">@Model.GastronomicVenue.City</div>
+            <div class="col">@Model.GastronomicVenue.Street @Model.GastronomicVenue.HouseNr</div>
+            <div class="col">@Model.GastronomicVenue.Phone</div>
+            <button class="btn btn-lg btn-primary btn-block not-round" type="submit">Rezerwuj</button>
+        </div>
+    </div>
+
+    <div class="board-menu">
+        <h2 class="text-center">@Model.GastronomicVenue.GastronomicVenueName Oferty:</h2>
+        <div class="row row-flex">
+
+            @foreach(var adv in Model.Advertisements)
+            {
+            <div class="card form-group col">
+                <div class="form-group row card-header">
+                    <div class="form-group col-sm-8">
+                        <div class="row-sm-8 venue-name">@Model.GastronomicVenue.GastronomicVenueName</div>
+                        <div class="row-sm-8 venue-location">@Model.GastronomicVenue.City</div>
+                    </div>
+                    <div class="col-sm-4 advertise-rating" align="right">
+                        <img src="~/images/flame.png" width="25" /> 481
+                    </div>
+                </div>
+                <div class="col-lg-12 img-box">
+                    <img class="img-responsive" src="~/images/oo.png" alt="Card image cap">
+                    <div class="img-responsive-overlay">
+                        <div class="img-responsive-overlay-text">@adv.Description</div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title col-lg-12 advertise-title" align="center">@adv.Title</h5>
+
+                </div>
+            </div>
+            }
+
+        </div>
+    </div>
+
+</div>

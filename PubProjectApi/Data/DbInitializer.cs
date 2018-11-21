@@ -43,6 +43,8 @@ namespace PubProjectApi.Data
                 new Advertisement {AdvertisementId=Guid.NewGuid(),Active=true,DateAdded=DateTime.Now,Title=" Wortki za Piątaka ",
                     Description ="W każdy Wtorek duże piwo tylko 5 zł", Tag="Promocja",GastronomicVenueId=new Guid("20fc4230-de61-4cdc-9408-b66e2892ac32"),GastronomicVenue = gastroVenuses.Where(x =>x.GastronomicVenueName.Equals("Remont Bar")).FirstOrDefault()},
                 new Advertisement {AdvertisementId=Guid.NewGuid(),Active=true,DateAdded=DateTime.Now,Title="Środa z pizzą",
+                    Description ="W Środy każda pizza 18 zł", Tag="Promocja",GastronomicVenueId=new Guid("20fc4230-de61-4cdc-9408-b66e2892ac32"),GastronomicVenue = gastroVenuses.Where(x =>x.GastronomicVenueName.Equals("Remont Bar")).FirstOrDefault()},
+                new Advertisement {AdvertisementId=Guid.NewGuid(),Active=true,DateAdded=DateTime.Now,Title="Środa z pizzą",
                     Description ="W Środy każda pizza 18 zł", Tag="Promocja",GastronomicVenueId=new Guid("20fc4230-de61-4cdc-9408-b66e2892ac32"),GastronomicVenue = gastroVenuses.Where(x =>x.GastronomicVenueName.Equals("Remont Bar")).FirstOrDefault()}
 
             };
