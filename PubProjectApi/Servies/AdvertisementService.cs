@@ -47,5 +47,10 @@ namespace PubProjectApi.Servies
             }
             return advList;
         }
+
+        public void AddAdvert(Advertisement advertisement)
+        {
+            _advertRepository.Add(advertisement);
+        }
     }
 }
