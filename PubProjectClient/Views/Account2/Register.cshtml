@@ -1,71 +1,84 @@
-﻿
+﻿@model PubProjectApi.Models.ModelsView.NewUser
 @{
     ViewData["Title"] = "Register";
 }
 
 <div class="content register-page">
-    <img class="page-background" id ="page-background" src="~/images/Bar/2.jpg" />
-    <form class="form-signin register-form col-xs-5">
-        <div class="form-group row bar-user">
-            <label class="col-sm-6 col-form-label text-center" id="RegVenBtn" onclick="RegVenBtnAction();">Lokal</label>
-            <label class="col-sm-6 col-form-label text-center RegCliButton" id="RegCliBtn" onclick="RegCliBtnAction();">Klient</label>
-        </div>
-        <h2 class="form-signin-heading col-xs-offset-1">Załóż Konto</h2>
-        <div class="form-group row">
-            <div class="col-xs-10 col-xs-offset-1">
-                <lable>Adres Email</lable>
-                <input type="email" id="inputEmail" class="form-control not-round input" placeholder="Adres Email" required="" autofocus="">
+    <img class="page-background" id="page-background" src="~/images/Bar/2.jpg" />
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <form class="form-signin register-form col-xs-5">
+            <div class="form-group row bar-user">
+                <label class="col-sm-6 col-form-label text-center" id="RegVenBtn" onclick="RegVenBtnAction();">Lokal</label>
+                <label class="col-sm-6 col-form-label text-center RegCliButton" id="RegCliBtn" onclick="RegCliBtnAction();">Klient</label>
             </div>
-            <div class="col-xs-10 col-xs-offset-1">
-                <lable>Hasło</lable>
-                <input type="password" id="inputPassword" class="form-control not-round input" placeholder="Hasło" required="">
-            </div>
-            <div class="col-xs-10 col-xs-offset-1">
-                <lable>Powtórz Hasło</lable>
-                <input type="password" id="inputPassword" class="form-control not-round input" placeholder="Powtórz Hasło" required="">
-            </div>
-            <div class="col-xs-10 col-xs-offset-1">
-                <lable id="RegName">Nick</lable>
-                <input type="text" id="inputName" class="form-control not-round input" placeholder="Nick" required="" autofocus="">
+            <h2 class="form-signin-heading col-xs-offset-1">Załóż Konto</h2>
+            <div class="form-group row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <lable>Adres Email</lable>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control not-round input", placeholder = "Email", tabindex = 1 })
+                   @* <input type="email" id="inputEmail" class="form-control not-round input" placeholder="Adres Email" required="" autofocus="">*@
+                </div>
+                <div class="col-xs-10 col-xs-offset-1">
+                    <lable>Hasło</lable>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control not-round input", placeholder = "Hasło", tabindex = 3 })
+                    @*<input type="password" id="inputPassword" class="form-control not-round input" placeholder="Hasło" required="">*@
+                </div>
+                <div class="col-xs-10 col-xs-offset-1">
+                    <lable>Powtórz Hasło</lable>
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control not-round input", placeholder = "Powtórz Hasło", tabindex = 4 })
+                    @*<input type="password" id="inputPassword" class="form-control not-round input" placeholder="Powtórz Hasło" required="">*@
+                </div>
+                <div class="col-xs-10 col-xs-offset-1">
+                    <lable id="RegName">Nick</lable>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control not-round input", placeholder = "Nick", tabindex = 5 })
+                    @*<input type="text" id="inputName" class="form-control not-round input" placeholder="Nick" required="" autofocus="">*@
+                </div>
+
+                <div id="RegVenue" hidden>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Miasto</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.City, new { @class = "form-control not-round input", placeholder = "Miasto", tabindex = 5 })
+                        @*<input type="text" id="inputEmail" class="form-control not-round input" placeholder="Miasto" required="" autofocus="">*@
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Ulica</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Street, new { @class = "form-control not-round input", placeholder = "Ulica", tabindex = 5 })
+                        @*<input type="text" id="inputEmail" class="form-control not-round input" placeholder="Ulica" required="" autofocus="">*@
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Nr Localu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.LocalNr, new { @class = "form-control not-round input", placeholder = "Numer lokalu", tabindex = 5 })
+                        @*<input type="text" id="inputEmail" class="form-control not-round input" placeholder="Numer lokalu" required="" autofocus="">*@
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Numer Telefonu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Phone, new { @class = "form-control not-round input", placeholder = "Numer Telefonu", tabindex = 5 })
+                        @*<input type="text" id="inputEmail" class="form-control not-round input" placeholder="Numer Telefonu" required="" autofocus="">*@
+                    </div>
+                    @*<div class="col-xs-10 col-xs-offset-1">
+                            <lable>Typ</lable>
+                            <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Typ" required="" autofocus="">
+                        </div>
+                        <div class="col-xs-10 col-xs-offset-1">
+                            <lable>Zdjęcie</lable>
+                            <input type="file" id="inputEmail" class="form-control not-round input" placeholder="Zdjęcie" required="" autofocus="">
+                        </div>*@
+                </div>
+                <div class="checkbox col-xs-10 col-xs-offset-1">
+                    <label>
+                        @Html.CheckBoxFor(m => m.Regimen, new { @class = "form-check-input " })
+                        @*<input type="checkbox" value="remember-me">*@  
+                        Oświadczam, że zapoznałem się z Regulaminem serwisu <a href="" class="terms-of-use-link">PuboBranie.pl</a> i akceptuję jego treść.
+                    </label>
+                </div>
+                <div class="col-xs-10 col-xs-offset-1">
+                    <button class="btn btn-lg btn-primary btn-block not-round" type="submit">Załadam Konto</button>
+                </div>
             </div>
 
-            <div id="RegVenue" hidden>
-                <div class="col-xs-10 col-xs-offset-1">
-                    <lable>Miasto</lable>
-                    <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Miasto" required="" autofocus="">
-                </div>
-                <div class="col-xs-10 col-xs-offset-1">
-                    <lable>Ulica</lable>
-                    <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Ulica" required="" autofocus="">
-                </div>
-                <div class="col-xs-10 col-xs-offset-1">
-                    <lable>Nr Localu</lable>
-                    <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Numer lokalu" required="" autofocus="">
-                </div>
-                <div class="col-xs-10 col-xs-offset-1">
-                    <lable>Numer Telefonu</lable>
-                    <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Numer Telefonu" required="" autofocus="">
-                </div>
-                @*<div class="col-xs-10 col-xs-offset-1">
-            <lable>Typ</lable>
-            <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Typ" required="" autofocus="">
-        </div>
-        <div class="col-xs-10 col-xs-offset-1">
-            <lable>Zdjęcie</lable>
-            <input type="file" id="inputEmail" class="form-control not-round input" placeholder="Zdjęcie" required="" autofocus="">
-        </div>*@
-            </div>
-            <div class="checkbox col-xs-10 col-xs-offset-1">
-                <label>
-                    <input type="checkbox" value="remember-me">  Oświadczam, że zapoznałem się z Regulaminem serwisu <a href="" class="terms-of-use-link">PuboBranie.pl</a> i akceptuję jego treść.
-                </label>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1">
-                <button class="btn btn-lg btn-primary btn-block not-round" type="submit">Załadam Konto</button>
-            </div>
-        </div>
-
-    </form>
+        </form>
+    }
 </div>
 
 <script src="~/js/scripts.js"></script>
