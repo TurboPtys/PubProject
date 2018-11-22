@@ -29,7 +29,7 @@ namespace PubProjectApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=Pub2;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=Pub3;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

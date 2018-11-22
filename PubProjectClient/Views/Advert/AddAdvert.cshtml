@@ -1,0 +1,27 @@
+﻿@model PubProjectApi.Models.Advertisement
+@{
+    ViewData["Title"] = "AddAdvert";
+}
+
+<div class="content add-advert-page">
+    <img class="page-background" src="~/images/Other/4.jpg" />
+
+    @using (Html.BeginForm("AddAdvert", "Advert", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <form class="form-signin login-form col-lg-4">
+            <h2>Dodaj Nową Ofertę</h2>
+            <div class="col-xs-10 col-xs-offset-1">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control not-round", placeholder = "Tytuł", tabindex = 2 })
+            </div>
+            <div class="col-xs-10 col-xs-offset-1">
+                @Html.TextAreaFor(m =>m.Description, new { @class = "form-control not-round", placeholder = "Opis", rows=5,})
+                <textarea class="form-control not-round" rows="5" id="discription"></textarea>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block not-round" type="submit">utwórz ofertę</button>
+        </form>
+
+    }
+
+</div>
+
+
