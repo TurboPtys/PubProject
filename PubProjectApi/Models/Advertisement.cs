@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,5 +21,7 @@ namespace PubProjectApi.Models
         public Boolean Active { get; set; }
         public string Tag { get; set; }
         public virtual GastronomicVenue GastronomicVenue { get; set; }
+
+        //public IFormFile File { get; set; }
     }
 }
