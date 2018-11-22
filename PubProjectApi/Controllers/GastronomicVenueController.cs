@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PubProjectApi.Models.ModelsView;
 using PubProjectApi.Servies;
 
 namespace PubProjectApi.Controllers
@@ -14,9 +15,11 @@ namespace PubProjectApi.Controllers
     {
 
         private readonly IGastronomicVenuesService _gastronomicVenuesService;
+        private readonly IAdvertisementService _advertisementService;
 
-        public GastronomicVenueController(IGastronomicVenuesService gastronomicVenuesService)
+        public GastronomicVenueController(IGastronomicVenuesService gastronomicVenuesService, IAdvertisementService advertisementService)
         {
+            _advertisementService = advertisementService;
             _gastronomicVenuesService = gastronomicVenuesService;
         }
 
@@ -30,10 +33,14 @@ namespace PubProjectApi.Controllers
 
         // GET api/GastronomicVenue/5
         [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
-            var gastronomicVenue = _gastronomicVenuesService.GetById(id);
-            return Ok(gastronomicVenue);
+            var gastronomicVenue = await _gastronomicVenuesService.GetById(id);
+            var advertisements = await _advertisementService.GetByVenue(id);
+            double star = 4.75;
+
+            var model = new GastronomicVenueView {Advertisements = advertisements, GastronomicVenue = gastronomicVenue, Grade = star };
+            return Ok(model);
         }
     }
 }

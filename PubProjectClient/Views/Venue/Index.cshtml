@@ -8,7 +8,7 @@
         <div class="col-xs-12 no-padding venue-item">
             @foreach(var venue in Model)
             {
-                <div class="venue-panel">
+                <div class="venue-panel" onclick="location.href='@Url.Action("Venue","Venue" , new { id = venue.GastronomicVenueId })'" >
                     <div class="row">
                         <div class="col-xs-3">
                             <img class="venue-img-show" src="http://lorempixel.com/850/850/?random=123">
