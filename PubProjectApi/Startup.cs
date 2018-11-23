@@ -33,11 +33,14 @@ namespace PubProjectApi
             var connection = @"Server=(localdb)\mssqllocaldb;Database=Pub5;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IGastronomicVenuesRepository, GastronomicVenuesRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+
             services.AddScoped<IAdvertisementService, AdvertisementService>();
             services.AddScoped<IGastronomicVenuesService, GastronomicVenuesService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()

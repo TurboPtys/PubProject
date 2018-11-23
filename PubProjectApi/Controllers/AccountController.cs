@@ -2,37 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PubProjectApi.Models;
 using PubProjectApi.Models.ModelsView;
 using PubProjectApi.Models.ModelsView.Account;
+using PubProjectApi.Servies;
 
 namespace PubProjectApi.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Account")]
     public class AccountController : Controller
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Register")]
-        public async Task<IdentityResult> Register([FromBody] NewUser model)
+        public async Task<IActionResult> Register ([FromBody] NewUser model)
         {
-            var user = new AppUser { Email = model.Email, Active = true };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            return result;
+            var user = new AppUser { Email = model.Email, Active = true ,UserName=model.Email};
+
+            var result = await _accountService.Register(user, model.Password);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return StatusCode(409);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<Microsoft.AspNetCore.Identity.SignInResult> Login(Login login)
+        [Route("Login")]
+        public async Task<IActionResult> Login(Login login)
         {
-            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
-            return result;
+            var result = await _accountService.Login(login);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else if (result.IsLockedOut)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(404);
+            }
         }
     }
 }

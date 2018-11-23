@@ -13,20 +13,22 @@ namespace PubProjectApi.Models.ModelsView
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "Hasło musi składać się z conajmniej {2} i maksymalnie {1} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Hasła nie poasjuą do siebie")]
         public string ConfirmPassword { get; set; }
 
         public string Name { get; set; }
 
         public GastronomicVenue GastronomicVenue {get;set; }
 
+        [Range(typeof(bool), "true", "true", ErrorMessage = "Musisz zaakceptować regulamin")]
+        [Display(Name = "Regimen")]
         public bool Regimen { get; set; } 
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PubProjectApi.Models.ModelsView;
+using PubProjectApi.Models.ModelsView.Account;
 
 namespace PubProjectClient.Controllers
 {
@@ -22,6 +23,26 @@ namespace PubProjectClient.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login(Login login)
+        {
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Login";
+            using (var client = new HttpClient())
+            {
+                var jsonString = JsonConvert.SerializeObject(login);
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return View();
+                }
+            }
+
+            return View(login);
+        }
+
         public IActionResult Register()
         {
             return View();
@@ -30,18 +51,26 @@ namespace PubProjectClient.Controllers
         [HttpPost]
         public IActionResult Register(NewUser model )
         {
-
-            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Register";
-            using (var client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                var jsonString = JsonConvert.SerializeObject(model);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-                var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+                string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Register";
+                using (var client = new HttpClient())
+                {
+                    var jsonString = JsonConvert.SerializeObject(model);
+                    var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-                return View();
+                    var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+
+                    if (resp.IsSuccessStatusCode)
+                    {
+                        return View();
+                    }
+
+                    
+                }
             }
-
+            return View(model);
         }
     }
 }
