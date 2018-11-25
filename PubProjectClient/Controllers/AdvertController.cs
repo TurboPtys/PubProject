@@ -4,15 +4,19 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PubProjectApi.Models;
 using PubProjectApi.Models.ModelsView;
+using PubProjectApi.Models.ModelsView.Advert;
 
 namespace PubProjectClient.Controllers
 {
     public class AdvertController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement/AdvertisementList";
@@ -21,17 +25,37 @@ namespace PubProjectClient.Controllers
                 var resp = client.GetAsync(urlGeneratePdfPriceLists).GetAwaiter().GetResult();
                 string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 IEnumerable<AdvertisementListView> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AdvertisementListView>>(mycontent);
-                return View(result);
+
+                AdvertsListView model = new AdvertsListView { Adverts = result, SearchAdvert = new SearchAdvert() };
+                return View(model);
             }
-
-            //IEnumerable<AdvertsListView> model;
-            //urlGeneratePdfPriceLists = "http://localhost:64832/api/GastronomicVenue/";
-            //using (var cilent= new HttpClient())
-            //{
-            //}
-
-            //return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Search(AdvertsListView model)
+        {
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement/Search";
+            using (var client = new HttpClient())
+            {
+                UriBuilder builder = new UriBuilder(urlGeneratePdfPriceLists);
+                var query = HttpUtility.ParseQueryString(string.Empty);
+                query["city"] = model.SearchAdvert.City;
+
+                if(model.SearchAdvert.Date.HasValue)
+                    query["date"] = model.SearchAdvert.Date.Value.ToString("yyyyMMddHHmmss");
+
+                builder.Query = query.ToString();
+
+                var resp = client.GetAsync(builder.Uri).Result;
+
+                string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                IEnumerable<AdvertisementListView> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AdvertisementListView>>(mycontent);
+
+                AdvertsListView adv = new AdvertsListView { Adverts = result, SearchAdvert = new SearchAdvert() };
+                return View("Index", adv);
+            }
+        }
+
 
         public IActionResult AddAdvert()
         {
@@ -39,6 +63,7 @@ namespace PubProjectClient.Controllers
         }
 
         [HttpPost]
+
         public IActionResult AddAdvert(Advertisement advertisement)
         {
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";

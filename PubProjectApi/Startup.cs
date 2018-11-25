@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,14 +30,21 @@ namespace PubProjectApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=Pub3;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=Pub5;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<ApplicationDbContext>
                 (options => options.UseSqlServer(connection));
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IGastronomicVenuesRepository, GastronomicVenuesRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+
             services.AddScoped<IAdvertisementService, AdvertisementService>();
             services.AddScoped<IGastronomicVenuesService, GastronomicVenuesService>();
+            services.AddScoped<IAccountService, AccountService>();
+
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
             services.AddMvc();
         }
 
@@ -47,6 +55,8 @@ namespace PubProjectApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

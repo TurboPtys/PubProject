@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PubProjectClient.Data;
 using PubProjectClient.Models;
 using PubProjectClient.Services;
+using PubProjectApi.Models;
 
 namespace PubProjectClient
 {
@@ -26,11 +27,11 @@ namespace PubProjectClient
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<PubProjectApi.Models.ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<PubProjectApi.Models.ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
@@ -40,7 +41,7 @@ namespace PubProjectClient
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -56,6 +57,7 @@ namespace PubProjectClient
             app.UseStaticFiles();
 
             app.UseAuthentication();
+           // app.UseSession();
 
             app.UseMvc(routes =>
             {

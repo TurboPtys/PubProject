@@ -9,5 +9,6 @@ namespace PubProjectApi.Models
     public class AppUser : IdentityUser
     {
         public bool Active { get; set; }
+
     }
 }

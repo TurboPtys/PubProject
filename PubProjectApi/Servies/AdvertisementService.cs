@@ -28,7 +28,6 @@ namespace PubProjectApi.Servies
 
         public async Task<IEnumerable<Advertisement>> GetByTag(string tag)
         {
-            
             return (await _advertRepository.GetAll()).Where(x => x.Tag.Equals(tag)).ToList();
         }
 

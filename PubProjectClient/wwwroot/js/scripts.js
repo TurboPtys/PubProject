@@ -15,3 +15,23 @@ function RegCliBtnAction() {
     document.getElementById("RegVenBtn").style.borderBottom = 'hidden';
     document.getElementById("page-background").src = '../images/Bar/2.jpg'
 }
+
+function datepic() {
+    document.getElementById("datetimepicker1").datetimepicker();
+
+}
+
+$(document).ready(function () {
+    $(function () {
+        //$('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+});

@@ -15,5 +15,9 @@ namespace PubProjectClient.Controllers
             return View();
         }
 
+        public IActionResult Proba()
+        {
+            return View();
+        }
     }
 }

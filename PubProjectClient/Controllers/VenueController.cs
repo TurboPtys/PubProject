@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PubProjectApi.Models;
 using PubProjectApi.Models.ModelsView;
+using PubProjectApi.Models.ModelsView.Venue;
 
 namespace PubProjectClient.Controllers
 {
@@ -20,7 +21,9 @@ namespace PubProjectClient.Controllers
                 var resp = client.GetAsync(urlGeneratePdfPriceLists).GetAwaiter().GetResult();
                 string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                 IEnumerable<GastronomicVenue> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<GastronomicVenue>>(mycontent);
-                return View(result);
+
+                GastronomicVenueListView model = new GastronomicVenueListView { GastronomicVenues = result, SearchVenue = new SearchVenue() };
+                return View(model);
             }
 
            
