@@ -1,39 +1,43 @@
-﻿@model IEnumerable<PubProjectApi.Models.GastronomicVenue>
+﻿@model PubProjectApi.Models.ModelsView.Venue.GastronomicVenueListView
 @{
     ViewData["Title"] = "Index";
 }
 
 <body>
     <div class="container">
-        <div class="col-xs-12 no-padding venue-item">
-            @foreach(var venue in Model)
-            {
-                <div class="venue-panel" onclick="location.href='@Url.Action("Venue","Venue" , new { id = venue.GastronomicVenueId })'" >
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <img class="venue-img-show" src="http://lorempixel.com/850/850/?random=123">
-                        </div>
-                        <div class="venue-info">
-                            <div class="col-xs-4">
-                                <div class="venue-row">
-                                    <div class="col-xs-8">@venue.GastronomicVenueName</div>
-                                    <div class="col-xs-4">Ocena</div>
-                                    <div class="col-xs-8"> @venue.City</div>
-                                    <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.8358264474587!2d17.056420615961386!3d51.11148914739353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fe9d4c574faf7%3A0x64386146fc5c650a!2sRemont+Bar!5e0!3m2!1spl!2spl!4v1541940244219" frameborder="0" style="border:0; width:100%; height:150px;" allowfullscreen></iframe>
-                                    @*<div class="col-xs-12" id="googleMap" style="width:100%;height:150px;"></div>*@
-                                </div>
+            <div class="col-xs-12">
+                @Html.Partial("_LeftVenueSearchMenu")
+            </div>
+            <div class="col-xs-12 no-padding venue-item">
+                @foreach (var venue in Model.GastronomicVenues)
+                {
+                    <div class="venue-panel" onclick="location.href='@Url.Action("Venue","Venue" , new { id = venue.GastronomicVenueId })'">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img class="venue-img-show" src="http://lorempixel.com/850/850/?random=123">
                             </div>
-                            <div class="col-xs-5">
-                                <div class="venue-row venue-description">
-                                    @venue.GastronomicVenueDescription
+                            <div class="venue-info">
+                                <div class="col-xs-4">
+                                    <div class="venue-row">
+                                        <div class="col-xs-8">@venue.GastronomicVenueName</div>
+                                        <div class="col-xs-4">Ocena</div>
+                                        <div class="col-xs-8"> @venue.City</div>
+                                        <iframe class="google-map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.8358264474587!2d17.056420615961386!3d51.11148914739353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fe9d4c574faf7%3A0x64386146fc5c650a!2sRemont+Bar!5e0!3m2!1spl!2spl!4v1541940244219" frameborder="0" style="border:0; width:100%; height:150px;" allowfullscreen></iframe>
+                                        @*<div class="col-xs-12" id="googleMap" style="width:100%;height:150px;"></div>*@
+                                    </div>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div class="venue-row venue-description">
+                                        @venue.GastronomicVenueDescription
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
     </div>
+
 
 </body>
 

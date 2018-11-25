@@ -15,6 +15,7 @@ namespace PubProjectApi.Models
         [ForeignKey("GastronomicVenue")]
         public Guid GastronomicVenueId { get; set; }
         public DateTime DateAdded { get; set; }
+        public DateTime EventDate { get; set; }
         public string Category { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

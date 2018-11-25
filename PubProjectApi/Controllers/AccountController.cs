@@ -40,9 +40,9 @@ namespace PubProjectApi.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Route("Login")]
-        public async Task<IActionResult> Login(Login login)
+        public async Task<IActionResult> Login([FromBody] Login login)
         {
             var result = await _accountService.Login(login);
             if (result.Succeeded)
