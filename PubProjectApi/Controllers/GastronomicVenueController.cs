@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PubProjectApi.Models;
 using PubProjectApi.Models.ModelsView;
 using PubProjectApi.Servies;
 
@@ -41,6 +42,13 @@ namespace PubProjectApi.Controllers
 
             var model = new GastronomicVenueView {Advertisements = advertisements, GastronomicVenue = gastronomicVenue, Grade = star };
             return Ok(model);
+        }
+
+
+        [HttpPost]
+        public void Post([FromBody] GastronomicVenue venue)
+        {
+            _gastronomicVenuesService.AddVenue(venue);
         }
     }
 }

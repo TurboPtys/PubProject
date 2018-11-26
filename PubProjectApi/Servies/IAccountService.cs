@@ -11,8 +11,10 @@ namespace PubProjectApi.Servies
 {
     public interface IAccountService
     {
-        Task<IdentityResult> Register(AppUser user, string Password);
+        Task<IdentityResult> Register(AppUser user, string Password,string Role);
 
         Task<SignInResult> Login(Login user);
+
+        Task Logout();
     }
 }

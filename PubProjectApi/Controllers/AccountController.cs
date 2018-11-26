@@ -17,10 +17,12 @@ namespace PubProjectApi.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IGastronomicVenuesService _gastronomicVenuesService;
 
-        public AccountController(IAccountService accountService)
+        public AccountController(IAccountService accountService,IGastronomicVenuesService gastronomicVenuesService)
         {
             _accountService = accountService;
+            _gastronomicVenuesService = gastronomicVenuesService;
         }
 
         [HttpPost]
@@ -29,8 +31,18 @@ namespace PubProjectApi.Controllers
         public async Task<IActionResult> Register ([FromBody] NewUser model)
         {
             var user = new AppUser { Email = model.Email, Active = true ,UserName=model.Email};
+            string role = "User";
+            if (!String.IsNullOrEmpty(model.GastronomicVenue.GastronomicVenueName))
+                role = "GastronomicVenueOwner";
+            
+            var result = _accountService.Register(user, model.Password, role).Result;
 
-            var result = await _accountService.Register(user, model.Password);
+            if (role.Equals("GastronomicVenueOwner") && result.Succeeded)
+            {
+                model.GastronomicVenue.UserId = new Guid(user.Id);
+                _gastronomicVenuesService.AddVenue(model.GastronomicVenue);
+            }
+
             if (result.Succeeded)
             {
                 return Ok();
@@ -57,6 +69,12 @@ namespace PubProjectApi.Controllers
             {
                 return StatusCode(404);
             }
+        }
+
+        public async Task Logout()
+        {
+            await _accountService.Logout();
+
         }
     }
 }

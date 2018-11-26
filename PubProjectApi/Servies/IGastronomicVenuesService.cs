@@ -10,5 +10,6 @@ namespace PubProjectApi.Servies
     {
         Task<IEnumerable<GastronomicVenue>> GetAll();
         Task<GastronomicVenue> GetById(Guid id);
+        void AddVenue(GastronomicVenue gastronomicVenue);
     }
 }

@@ -24,5 +24,10 @@ namespace PubProjectApi.Servies
         {
             return await _gastronomicVenuesRepository.GetById(id);
         }
+
+        public void AddVenue(GastronomicVenue gastronomicVenue)
+        {
+            _gastronomicVenuesRepository.Add(gastronomicVenue);
+        }
     }
 }

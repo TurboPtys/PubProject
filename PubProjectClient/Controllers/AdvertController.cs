@@ -56,7 +56,7 @@ namespace PubProjectClient.Controllers
             }
         }
 
-
+        [Authorize]
         public IActionResult AddAdvert()
         {
             return View();

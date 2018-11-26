@@ -29,37 +29,46 @@
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control not-round input", placeholder = "Powtórz Hasło", tabindex = 4 })
                     @Html.ValidationMessageFor(m => m.ConfirmPassword)
                 </div>
-                <div class="col-xs-10 col-xs-offset-1">
-                    <lable id="RegName">Nick</lable>
-                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control not-round input", id = "inputName", placeholder = "Nick", tabindex = 5 })
-                    @Html.ValidationMessageFor(m => m.Name)
-                 </div>
+                <div  id="RegName">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Nick</lable>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control not-round input", id = "RegName", placeholder = "Nick", tabindex = 5 })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
+                </div>
+
+
+                
 
                 <div id="RegVenue" hidden>
                     <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Nazwa Lokalu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.GastronomicVenueName, new { @class = "form-control not-round input", id = "inputVenuName", placeholder = "Nazwa Lokalu", tabindex = 5 })
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
                         <lable>Miasto</lable>
-                        @Html.TextBoxFor(m => m.GastronomicVenue.City, new { @class = "form-control not-round input", placeholder = "Miasto", tabindex = 5 })
+                        @Html.TextBoxFor(m => m.GastronomicVenue.City, new { @class = "form-control not-round input", id = "inputCity", placeholder = "Miasto", tabindex = 5 })
                     </div>
                     <div class="col-xs-10 col-xs-offset-1">
                         <lable>Ulica</lable>
-                        @Html.TextBoxFor(m => m.GastronomicVenue.Street, new { @class = "form-control not-round input", placeholder = "Ulica", tabindex = 5 })
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Street, new { @class = "form-control not-round input", id = "inputStreet", placeholder = "Ulica", tabindex = 5 })
                     </div>
                     <div class="col-xs-10 col-xs-offset-1">
                         <lable>Nr Localu</lable>
-                        @Html.TextBoxFor(m => m.GastronomicVenue.LocalNr, new { @class = "form-control not-round input", placeholder = "Numer lokalu", tabindex = 5 })
+                        @Html.TextBoxFor(m => m.GastronomicVenue.LocalNr, new { @class = "form-control not-round input", id = "inputHouseNr", placeholder = "Numer lokalu", tabindex = 5 })
                     </div>
                     <div class="col-xs-10 col-xs-offset-1">
                         <lable>Numer Telefonu</lable>
-                        @Html.TextBoxFor(m => m.GastronomicVenue.Phone, new { @class = "form-control not-round input", placeholder = "Numer Telefonu", tabindex = 5 })
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Phone, new { @class = "form-control not-round input", id = "inputPhone", placeholder = "Numer Telefonu", tabindex = 5 })
                     </div>
                     @*<div class="col-xs-10 col-xs-offset-1">
-                            <lable>Typ</lable>
-                            <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Typ" required="" autofocus="">
-                        </div>
-                        <div class="col-xs-10 col-xs-offset-1">
-                            <lable>Zdjęcie</lable>
-                            <input type="file" id="inputEmail" class="form-control not-round input" placeholder="Zdjęcie" required="" autofocus="">
-                        </div>*@
+            <lable>Typ</lable>
+            <input type="text" id="inputEmail" class="form-control not-round input" placeholder="Typ" required="" autofocus="">
+        </div>
+        <div class="col-xs-10 col-xs-offset-1">
+            <lable>Zdjęcie</lable>
+            <input type="file" id="inputEmail" class="form-control not-round input" placeholder="Zdjęcie" required="" autofocus="">
+        </div>*@
                 </div>
                 <div class="checkbox col-xs-10 col-xs-offset-1">
                     <label>

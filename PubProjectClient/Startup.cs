@@ -34,10 +34,13 @@ namespace PubProjectClient
                 .AddEntityFrameworkStores<PubProjectApi.Models.ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddAuthentication();
+            services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account2/Login");
+            services.ConfigureApplicationCookie(opts => opts.AccessDeniedPath = "/Account2/Login");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,8 +56,18 @@ namespace PubProjectClient
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            //app.UseIdentity();
             app.UseStaticFiles();
+
+            //var alreadyExists = roleManager.RoleExistsAsync("Admin");
+            //if (!alreadyExists.Result)
+            //    roleManager.CreateAsync(new IdentityRole("Admin"));
+            //var alreadyExists2 = roleManager.RoleExistsAsync("User");
+            //if (!alreadyExists2.Result)
+            //    roleManager.CreateAsync(new IdentityRole("User"));
+            //var alreadyExists3 = roleManager.RoleExistsAsync("GastronomicVenueOwner");
+            //if (!alreadyExists3.Result)
+            //    roleManager.CreateAsync(new IdentityRole("GastronomicVenueOwner"));
 
             app.UseAuthentication();
            // app.UseSession();

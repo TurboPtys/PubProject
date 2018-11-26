@@ -1,4 +1,6 @@
-﻿using PubProjectApi.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using PubProjectApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,10 @@ namespace PubProjectApi.Data
 {
     public class DbInitializer
     {
+
         public static void Initialize(ApplicationDbContext context)
         {
-            //context.Database.EnsureCreated();
-
+            //context.Database.EnsureCreated()
 
             var gastroVenuses = new GastronomicVenue[]
             {
@@ -59,6 +61,15 @@ namespace PubProjectApi.Data
                 context.SaveChanges();
             }
 
+
+            if (!context.Roles.Any())
+            {
+                context.Roles.Add(new IdentityRole("Admin"));
+                context.Roles.Add(new IdentityRole("GastronomyVenueOwner"));
+                context.Roles.Add(new IdentityRole("User"));
+
+                context.SaveChanges();
+            }
         }
     }
 }

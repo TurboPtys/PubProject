@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using PubProjectApi.Models.ModelsView.Account;
 
 namespace PubProjectClient.Controllers
 {
+    [Authorize]
     public class Account2Controller : Controller
     {
 
@@ -26,21 +28,25 @@ SignInManager<AppUser> signInManager)
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Login login)
+        [AllowAnonymous]
+        public IActionResult Login(Login login)
         {
-            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
+            _signInManager.SignOutAsync();
+            var result = _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
+
             //string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Login";
             //using (var client = new HttpClient())
             //{
@@ -54,7 +60,7 @@ SignInManager<AppUser> signInManager)
             //        return View("../Home/Index");
             //    }
             //}
-            if (result.Succeeded)
+            if (result.Result.Succeeded)
             {
                 return View("../Home/Index");
             }
@@ -62,12 +68,14 @@ SignInManager<AppUser> signInManager)
             return View(login);
         }
 
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Register(NewUser model )
         {
             if (ModelState.IsValid)
@@ -91,5 +99,21 @@ SignInManager<AppUser> signInManager)
             }
             return View(model);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Logout ()
+        {
+            //string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Logout";
+
+            //using (var client = new HttpClient())
+            //{
+            //   var result = client.GetAsync(urlGeneratePdfPriceLists).Result;
+            //}
+
+            _signInManager.SignOutAsync();
+            return View("Login");
+        }
+
     }
 }
