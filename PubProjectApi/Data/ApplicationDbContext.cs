@@ -17,6 +17,7 @@ namespace PubProjectApi.Models
 
         public DbSet<GastronomicVenue> GastronomicVenues { get; set; }
         public DbSet<Advertisement> Advertisements { get; set; }
+        public DbSet<File> Files { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

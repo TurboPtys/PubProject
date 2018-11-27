@@ -65,7 +65,7 @@ namespace PubProjectApi.Data
             if (!context.Roles.Any())
             {
                 context.Roles.Add(new IdentityRole("Admin"));
-                context.Roles.Add(new IdentityRole("GastronomyVenueOwner"));
+                context.Roles.Add(new IdentityRole("GastronomicVenueOwner"));
                 context.Roles.Add(new IdentityRole("User"));
 
                 context.SaveChanges();

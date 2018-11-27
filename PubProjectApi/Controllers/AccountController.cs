@@ -37,6 +37,7 @@ namespace PubProjectApi.Controllers
             
             var result = _accountService.Register(user, model.Password, role).Result;
 
+
             if (role.Equals("GastronomicVenueOwner") && result.Succeeded)
             {
                 model.GastronomicVenue.UserId = new Guid(user.Id);

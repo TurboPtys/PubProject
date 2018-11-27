@@ -30,7 +30,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Advert" asp-action="AddAdvert">Dodaj oferty</a></li>
+                    @if (User.IsInRole("GastronomicVenueOwner"))
+                    {
+                        <li><a asp-area="" asp-controller="Advert" asp-action="AddAdvert">Dodaj oferty</a></li>
+                    }
+
                     <li><a asp-area="" asp-controller="Advert" asp-action="Index">Oferty</a></li>
                     <li><a asp-area="" asp-controller="Venue" asp-action="Index">Bary</a></li>
                 </ul>

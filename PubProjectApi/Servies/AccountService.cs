@@ -13,12 +13,14 @@ namespace PubProjectApi.Servies
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
 
-        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public async Task<IdentityResult> Register(AppUser user, string Password, string Role)
@@ -27,7 +29,19 @@ namespace PubProjectApi.Servies
             var result = await _userManager.CreateAsync(user, Password);
             if (result.Succeeded)
             {
-               var aa = await _userManager.AddToRoleAsync(user, Role);
+                bool adminRoleExists = await _roleManager.RoleExistsAsync(Role);
+                 IdentityResult roleResult;
+                if (!adminRoleExists)
+                {
+                    roleResult = await _roleManager.CreateAsync(new IdentityRole(Role));
+                }
+
+                if (!await _userManager.IsInRoleAsync(user, Role))
+                {
+                    //_logger.LogInformation("Adding sysadmin to Admin role");
+                    var userResult = await _userManager.AddToRoleAsync(user, Role);
+                }
+                //var aa = await _userManager.AddToRoleAsync(user, Role);
                await _signInManager.PasswordSignInAsync(user.Email, Password, false, lockoutOnFailure: false);
             }
             return result;
@@ -44,5 +58,6 @@ namespace PubProjectApi.Servies
             await _signInManager.SignOutAsync();
 
         }
+
     }
 }

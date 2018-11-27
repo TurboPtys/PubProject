@@ -56,14 +56,14 @@ namespace PubProjectClient.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "GastronomicVenueOwner")]
         public IActionResult AddAdvert()
         {
             return View();
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "GastronomicVenueOwner")]
         public IActionResult AddAdvert(Advertisement advertisement)
         {
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";
