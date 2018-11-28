@@ -37,10 +37,12 @@ namespace PubProjectApi
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IGastronomicVenuesRepository, GastronomicVenuesRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
+            services.AddScoped<ILikeRepository, LikeRepository>();
 
             services.AddScoped<IAdvertisementService, AdvertisementService>();
             services.AddScoped<IGastronomicVenuesService, GastronomicVenuesService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILikeService, LikeService>();
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PubProjectApi.Models;
@@ -14,8 +17,16 @@ using PubProjectApi.Models.ModelsView.Advert;
 
 namespace PubProjectClient.Controllers
 {
+    [Route("[controller]/[action]")]
     public class AdvertController : Controller
     {
+        private readonly IHostingEnvironment _environment;
+
+        public AdvertController(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -27,6 +38,7 @@ namespace PubProjectClient.Controllers
                 IEnumerable<AdvertisementListView> result = Newtonsoft.Json.JsonConvert.DeserializeObject<IEnumerable<AdvertisementListView>>(mycontent);
 
                 AdvertsListView model = new AdvertsListView { Adverts = result, SearchAdvert = new SearchAdvert() };
+                
                 return View(model);
             }
         }
@@ -41,7 +53,7 @@ namespace PubProjectClient.Controllers
                 var query = HttpUtility.ParseQueryString(string.Empty);
                 query["city"] = model.SearchAdvert.City;
 
-                if(model.SearchAdvert.Date.HasValue)
+                if (model.SearchAdvert.Date.HasValue)
                     query["date"] = model.SearchAdvert.Date.Value.ToString("yyyyMMddHHmmss");
 
                 builder.Query = query.ToString();
@@ -64,14 +76,23 @@ namespace PubProjectClient.Controllers
 
         [HttpPost]
         [Authorize(Roles = "GastronomicVenueOwner")]
-        public IActionResult AddAdvert(Advertisement advertisement)
+        //public IActionResult AddAdvert(AddAdvert advertisement, IFormFile pic)
+        public IActionResult AddAdvert(AddAdvert advert)
         {
+            //if(advert.F != null)
+            //{
+            //    var fileName = Path.Combine(_environment.WebRootPath, Path.GetFileName(advert.F.FileName));
+            //    advert.F.CopyTo(new FileStream(fileName, FileMode.Create));
+            //    ViewData["ileLocation"] = "/" + Path.GetFileName(advert.F.FileName);
+            //    ViewData["file"] = fileName;
+            //}
+            //return View();
+
+            AddAdvert a = new AddAdvert { Title = advert.Title, DateEvent = advert.DateEvent };
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";
             using (var client = new HttpClient())
             {
-                var adv = new Advertisement { Active = true, AdvertisementId = Guid.NewGuid(), DateAdded = DateTime.Now, Title = advertisement.Title, Description = advertisement.Description, GastronomicVenueId = new Guid("d71e759a-ce3e-4c57-b089-07c2274955d8"), Tag = "iło", Category = "fajno fajno" };
-
-                var jsonString = JsonConvert.SerializeObject(adv);
+                var jsonString = JsonConvert.SerializeObject(a);
                 var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                 var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
@@ -79,6 +100,26 @@ namespace PubProjectClient.Controllers
                 return View();
             }
 
+        }
+
+        [HttpGet]
+        [Route("{UserId}/{AdvertId}")]
+        public void AddLike(Guid UserId, Guid AdvertId)
+        {
+
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement/AddLike";
+            using (var client = new HttpClient())
+            {
+                UriBuilder builder = new UriBuilder(urlGeneratePdfPriceLists);
+                AddLike addLike = new AddLike { AdvertId = AdvertId, UserId = UserId };
+
+                var jsonString = JsonConvert.SerializeObject(addLike);
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                var resp = client.PostAsync(builder.Uri,content).Result;
+
+                Index();
+            }
         }
     }
 }

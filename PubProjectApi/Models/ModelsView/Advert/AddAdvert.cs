@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +9,11 @@ namespace PubProjectApi.Models.ModelsView.Advert
 {
     public class AddAdvert
     {
-        public Advertisement Advert { get; set; }
-        public File File { get; set; }
+        public string Title { get; set; }
+        public string Discription { get; set; }
+        public DateTime DateEvent { get; set; }
+        public IFormFile F { get; set; }
+        public Guid OwnerId { get; set; }
+        public FormFile File { get; set; } 
     }
 }

@@ -16,10 +16,12 @@ namespace PubProjectApi.Controllers
     public class AdvertisementController : Controller
     {
         private readonly IAdvertisementService _advertisementServiecs;
-        
-        public AdvertisementController(IAdvertisementService advertisementService)
+        private readonly ILikeService _likeService;
+
+        public AdvertisementController(IAdvertisementService advertisementService, ILikeService likeService)
         {
             _advertisementServiecs = advertisementService;
+            _likeService = likeService;
         }
 
         [HttpGet]
@@ -33,11 +35,11 @@ namespace PubProjectApi.Controllers
         [HttpGet]
         [Route("Search")]
         [Route("{city}/{date}")]
-        public async Task<IActionResult> AdvertisementList(string city,string date)
+        public async Task<IActionResult> AdvertisementList(string city, string date)
         {
             DateTime? d = null;
-            if (!String.IsNullOrEmpty(date)) { 
-            d = DateTime.ParseExact(date, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture);
+            if (!String.IsNullOrEmpty(date)) {
+                d = DateTime.ParseExact(date, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture);
             }
 
             IEnumerable<AdvertisementListView> adv;
@@ -72,24 +74,20 @@ namespace PubProjectApi.Controllers
         {
             return "value";
         }
-        
+
         // POST: api/Advertisement
         [HttpPost]
-        public void Post([FromBody] Advertisement advertisement)
+        public void Post([FromBody] AddAdvert advertisement)
         {
-            _advertisementServiecs.AddAdvert(advertisement);
+            var adv = new Advertisement { Title = advertisement.Title, Description = advertisement.Discription, EventDate = advertisement.DateEvent };
+            _advertisementServiecs.AddAdvert(adv);
         }
-        
-        // PUT: api/Advertisement/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+
+        [HttpPost]
+        [Route("AddLike")]
+        public void AddLike([FromBody] AddLike addLike)
         {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            _likeService.AddLike(addLike);
         }
     }
 }

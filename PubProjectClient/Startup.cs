@@ -30,6 +30,10 @@ namespace PubProjectClient
             services.AddDbContext<PubProjectApi.Models.ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddAuthentication();
+            services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account2/Login");
+            services.ConfigureApplicationCookie(opts => opts.AccessDeniedPath = "/Account2/Login");
+
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<PubProjectApi.Models.ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -38,9 +42,7 @@ namespace PubProjectClient
 
             services.AddMvc();
 
-            services.AddAuthentication();
-            services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Account2/Login");
-            services.ConfigureApplicationCookie(opts => opts.AccessDeniedPath = "/Account2/Login");
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +59,7 @@ namespace PubProjectClient
                 app.UseExceptionHandler("/Home/Error");
             }
             //app.UseIdentity();
+            app.UseAuthentication();
             app.UseStaticFiles();
 
             //var alreadyExists = roleManager.RoleExistsAsync("Admin");
@@ -69,7 +72,7 @@ namespace PubProjectClient
             //if (!alreadyExists3.Result)
             //    roleManager.CreateAsync(new IdentityRole("GastronomicVenueOwner"));
 
-            app.UseAuthentication();
+
            // app.UseSession();
 
             app.UseMvc(routes =>

@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PubProjectApi.Repository
 {
-    public class AdvertisementRepository : Repository<Advertisement>, IAdvertisementRepository
+    public class LikeRepository: Repository<Like>, ILikeRepository
     {
-        public AdvertisementRepository(ApplicationDbContext context) : base(context) { }
+        public LikeRepository(ApplicationDbContext context) : base(context) { }
 
     }
 }

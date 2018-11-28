@@ -1,34 +1,62 @@
-﻿@model PubProjectApi.Models.Advertisement
+﻿@model PubProjectApi.Models.ModelsView.Advert.AddAdvert
+@using Microsoft.AspNetCore.Identity
+@using PubProjectApi.Models
+@inject UserManager<AppUser> UserManager
 @{
     ViewData["Title"] = "AddAdvert";
 }
 
 
 
-<div class="content register-page">
+@*<div class="content register-page">
     <img class="page-background" id="page-background" src="~/images/Other/4.jpg" />
 
     @using (Html.BeginForm("AddAdvert", "Advert", FormMethod.Post, new { @class = "form-signin register-form col-lg-5", role = "form" }))
     {
-    <form>
-        <h2 class="form-signin-heading">Dodaj Nową Ofertę</h2>
-        <div class="col-xs-10 col-xs-offset-1">
-            @Html.TextBoxFor(m => m.Title, new { @class = "form-control not-round input", placeholder = "Tytuł", tabindex = 2 })
-        </div>
-        <div class="col-xs-10 col-xs-offset-1">
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control not-round input", placeholder = "Opis", rows = 5, })
-        </div>
-        <div class="col-xs-10 col-xs-offset-1">
-            @Html.TextBoxFor(m => m.File, new { @class = "form-control not-round input", type = "file" })
-        </div>
-        <div class="col-xs-10 col-xs-offset-1">
-            <button class="btn btn-lg btn-primary btn-block not-round" type="submit">utwórz ofertę</button>
-        </div>
-    </form>
+        <form>
+            <h2 class="form-signin-heading">Dodaj Nową Ofertę</h2>
+            <div class="col-xs-10 col-xs-offset-1">
+                @Html.TextBoxFor(m => m.Advert.Title, new { @class = "form-control not-round input", placeholder = "Tytuł", tabindex = 2 })
+            </div>
+            <div class="col-xs-10 col-xs-offset-1">
+                @Html.TextAreaFor(m => m.Advert.Description, new { @class = "form-control not-round input", placeholder = "Opis", rows = 5, })
+            </div>
+            @Html.TextBoxFor(m => m.SearchAdvert.Date, new { @class = "datepicker form-control not-round input", type = "date" })
+            <div class="col-xs-10 col-xs-offset-1">
+                <input type="file" name="F" />
+                @Html.TextBoxFor(m => m.F, new { @class = "form-control not-round input", type = "file", name="pic"})
+            </div>
+            @Html.HiddenFor(m => m.OwnerId, new { value = @UserManager.GetUserId(User) })
+            <div class="col-xs-10 col-xs-offset-1">
+                <button class="btn btn-lg btn-primary btn-block not-round" type="submit">utwórz ofertę</button>
+            </div>
+        </form>
 
     }
 
+</div>*@
+
+
+<div class="content register-page">
+    <img class="page-background" id="page-background" src="~/images/Other/4.jpg" />
+
+    <form class="form-signin register-form col-lg-5" method="post" action="/Advert/AddAdvert" enctype="multipart/form-data">
+        <div class="col-xs-10 col-xs-offset-1">
+            <input type="text" class="form-control not-round input" placeholder="Tytuł" name="Title" />
+        </div>
+        <div class="col-xs-10 col-xs-offset-1">
+            <textarea rows="4" cols="50" class="form-control not-round input" name="Discription" placeholder="Opis"></textarea>
+        </div>
+        <div class="col-xs-10 col-xs-offset-1">
+            <input type="date" class="datepicker form-control not-round input" name="DateEvent" />
+        </div>
+        <div class="col-xs-10 col-xs-offset-1">
+            <input type="file" name="F" />
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1">
+            <button class="btn btn-lg btn-primary btn-block not-round" type="submit">utwórz ofertę</button>
+        </div>
+        <input hidden type="text" name="OwnerId" value=@UserManager.GetUserId(User) />
+    </form>
 </div>
-
-
-

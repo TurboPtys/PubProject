@@ -22,7 +22,8 @@ namespace PubProjectApi.Models
         public Boolean Active { get; set; }
         public string Tag { get; set; }
         public virtual GastronomicVenue GastronomicVenue { get; set; }
-
+        public IEnumerable<Like> Likes { get; set; }
+        public int? CountLike { get; set; } 
         //public IFormFile File { get; set; }
     }
 }

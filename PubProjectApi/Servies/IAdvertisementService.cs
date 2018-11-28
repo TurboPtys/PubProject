@@ -14,5 +14,6 @@ namespace PubProjectApi.Servies
         Task<List<AdvertisementListView>> GetAdvertsList();
         Task<IEnumerable<Advertisement>> GetByVenue(Guid id);
         void AddAdvert(Advertisement advertisement);
+        void AddLike(Guid AdvertId);
     }
 }

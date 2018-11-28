@@ -9,6 +9,8 @@ namespace PubProjectApi.Models.ModelsView
     {
         public Advertisement Advertisement { get; set; }
         public GastronomicVenue GastronomicVenue { get; set; }
+        public int CountLikes { get; set; }
+        public IEnumerable<Like> Likes { get; set; }
 
     }
 }

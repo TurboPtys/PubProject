@@ -23,6 +23,9 @@ namespace PubProjectApi.Models
         public double Longitude { get; set; }
         [ForeignKey("UserId")]
         public Guid UserId { get; set; }
+        public int? SumGrade { get; set; }
+        public int? Grades { get; set; }
+        public double? Grade { get; set; }
         //godziny otwarcia
     }
 }

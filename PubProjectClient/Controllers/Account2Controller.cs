@@ -22,7 +22,7 @@ namespace PubProjectClient.Controllers
         private readonly SignInManager<AppUser> _signInManager;
 
         public Account2Controller(UserManager<AppUser> userManager,
-SignInManager<AppUser> signInManager)
+                                    SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -34,6 +34,7 @@ SignInManager<AppUser> signInManager)
             return View();
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
         {
