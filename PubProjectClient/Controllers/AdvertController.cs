@@ -77,25 +77,67 @@ namespace PubProjectClient.Controllers
         [HttpPost]
         [Authorize(Roles = "GastronomicVenueOwner")]
         //public IActionResult AddAdvert(AddAdvert advertisement, IFormFile pic)
-        public IActionResult AddAdvert(AddAdvert advert)
+        public IActionResult AddAdvert(AddAdvert advert, Guid OwnerId)
         {
-            //if(advert.F != null)
-            //{
-            //    var fileName = Path.Combine(_environment.WebRootPath, Path.GetFileName(advert.F.FileName));
-            //    advert.F.CopyTo(new FileStream(fileName, FileMode.Create));
-            //    ViewData["ileLocation"] = "/" + Path.GetFileName(advert.F.FileName);
-            //    ViewData["file"] = fileName;
-            //}
-            //return View();
 
-            AddAdvert a = new AddAdvert { Title = advert.Title, DateEvent = advert.DateEvent };
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";
             using (var client = new HttpClient())
             {
-                var jsonString = JsonConvert.SerializeObject(a);
-                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-                var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+
+                try
+                {
+
+
+                    byte[] data;
+                    using (var br = new BinaryReader(advert.File.OpenReadStream()))
+                        data = br.ReadBytes((int)advert.File.OpenReadStream().Length);
+
+                    ByteArrayContent bytes = new ByteArrayContent(data);
+
+
+                    MultipartFormDataContent multiContent = new MultipartFormDataContent();
+
+                    multiContent.Add(bytes, "File", advert.File.FileName);
+                    multiContent.Add(new StringContent(advert.DateEvent.ToString()), "DateEvent");
+                    multiContent.Add(new StringContent(advert.Discription), "Discription");
+                    multiContent.Add(new StringContent(OwnerId.ToString()), "OwnerId");
+                    multiContent.Add(new StringContent(advert.Title), "Title");
+                    multiContent.Add(new StringContent(advert.Tag), "Tag");
+                  
+
+                    var result = client.PostAsync(urlGeneratePdfPriceLists, multiContent).Result;
+
+
+                    if (result.IsSuccessStatusCode)
+                    {
+
+                        return RedirectToAction("Index", "Advert");
+
+                    }
+                     //201 Created the request has been fulfilled, resulting in the creation of a new resource.
+
+                }
+                catch (Exception)
+                {
+                    return StatusCode(500); // 500 is generic server error
+                }
+
+                //byte[] data;
+                //using (var br = new BinaryReader(advert.F.OpenReadStream()))
+                //    data = br.ReadBytes((int)advert.F.OpenReadStream().Length);
+
+                ////var jsonString = JsonConvert.SerializeObject(a);
+                ////var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                
+                //ByteArrayContent bytes = new ByteArrayContent(data);
+                //MultipartFormDataContent multiContent = new MultipartFormDataContent();
+                //multiContent.Add(bytes, "file", advert.F.FileName);
+                //multiContent.Add(new StringContent(advert.DateEvent.ToString()), "DateEvent");
+                //multiContent.Add(new StringContent(advert.Discription), "Discription");
+
+                //var resp = client.PostAsync(urlGeneratePdfPriceLists, multiContent).Result;
 
                 return View();
             }
@@ -104,7 +146,7 @@ namespace PubProjectClient.Controllers
 
         [HttpGet]
         [Route("{UserId}/{AdvertId}")]
-        public void AddLike(Guid UserId, Guid AdvertId)
+        public IActionResult AddLike(Guid UserId, Guid AdvertId)
         {
 
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement/AddLike";
@@ -118,7 +160,7 @@ namespace PubProjectClient.Controllers
 
                 var resp = client.PostAsync(builder.Uri,content).Result;
 
-                Index();
+                return RedirectToAction("Index", "Advert");
             }
         }
     }

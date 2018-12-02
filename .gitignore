@@ -261,3 +261,7 @@ __pycache__/
 *.pyc
 
 .vs/
+/PubProjectClient/wwwroot/upload
+/PubProjectApi/wwwroot/upload
+/PubProjectApi/wwwroot/Microsoft.AspNetCore.Http.Internal.FormFile
+/PubProjectApi/wwwroot/0be98b44-dc80-45b9-900a-1d5262f199fc

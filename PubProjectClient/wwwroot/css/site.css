@@ -135,6 +135,11 @@
     font-weight: 800;
 }
 
+.venue-name a {
+        color: #CCCCCC;
+        font-weight: 800;
+}
+
 .venue-location {
     color: #6CB0DD;
 }

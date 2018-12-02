@@ -38,11 +38,13 @@ namespace PubProjectApi
             services.AddScoped<IGastronomicVenuesRepository, GastronomicVenuesRepository>();
             services.AddScoped<IAdvertisementRepository, AdvertisementRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
+            services.AddScoped<IFileRepository, FileRepository>();
 
             services.AddScoped<IAdvertisementService, AdvertisementService>();
             services.AddScoped<IGastronomicVenuesService, GastronomicVenuesService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ILikeService, LikeService>();
+            services.AddScoped<IFileService, FileService>();
 
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

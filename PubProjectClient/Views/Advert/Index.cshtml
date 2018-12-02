@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Identity
 @using PubProjectApi.Models
 @inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
 
 <div class="board-menu">
     <div class="row">
@@ -20,27 +21,28 @@
                     <div class="card form-group col">
                         <div class="form-group row card-header">
                             <div class="form-group col-sm-8">
-                                <div class="row-sm-8 venue-name">@adv.GastronomicVenue.GastronomicVenueName</div>
+                                <div class="row-sm-8 venue-name">@Html.ActionLink(@adv.GastronomicVenue.GastronomicVenueName, "Venue", "Venue", new {@class="venue-name", id = @adv.GastronomicVenue.GastronomicVenueId}) </div>
                                 <div class="row-sm-8 venue-location">@adv.GastronomicVenue.City</div>
-                                <div class="row-sm-8">@adv.Advertisement.EventDate.ToString().Substring(0,10)</div>
+                                <div class="row-sm-8">@adv.Advertisement.EventDate.ToString().Substring(0, 10)</div>
                             </div>
 
                             <div class="col-sm-4 advertise-rating" align="right">
-                                @*<a href="/Advert/AddLike/@UserManager.GetUserId(User)/@adv.Advertisement.AdvertisementId">*@
-                                <img src="~/images/flame.png" width="25" />
-                                @if((adv.Likes.Where(x => x.UserId.Equals(new Guid(@UserManager.GetUserId(User)))).FirstOrDefault()) == null)
+                                @if (SignInManager.IsSignedIn(User) && ((adv.Likes.Where(x => x.UserId.Equals(new Guid(@UserManager.GetUserId(User)))).FirstOrDefault()) == null))
                                 {
 
-                                    @Html.ActionLink("Advert", "AddLike", new { UserId = @UserManager.GetUserId(User), AdvertId = @adv.Advertisement.AdvertisementId })
+                                    @Html.ActionLink("+", "AddLike", new { UserId = @UserManager.GetUserId(User), AdvertId = @adv.Advertisement.AdvertisementId })
 
                                 }
+                                @*<a href="/Advert/AddLike/@UserManager.GetUserId(User)/@adv.Advertisement.AdvertisementId">*@
+                                <img src="~/images/flame.png" width="25" />
+
 
                                 @*</a>*@
                                 @adv.CountLikes
                             </div>
                         </div>
                         <div class="col-lg-12 img-box">
-                            <img class="img-responsive" src="~/images/oo.png" alt="Card image cap">
+                            <img class="img-responsive" src="~/upload/@String.Concat(adv.Advertisement.AdvertisementId.ToString(),".jpg")" />
                             <div class="img-responsive-overlay">
                                 <div class="img-responsive-overlay-text">@adv.Advertisement.Description</div>
                             </div>

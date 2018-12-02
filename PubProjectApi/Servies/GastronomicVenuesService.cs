@@ -29,5 +29,10 @@ namespace PubProjectApi.Servies
         {
             _gastronomicVenuesRepository.Add(gastronomicVenue);
         }
+
+        public async Task<GastronomicVenue> GetByOwnerId(Guid id)
+        {
+            return (await _gastronomicVenuesRepository.GetAll()).Where(x => x.UserId.Equals(id)).FirstOrDefault();
+        }
     }
 }

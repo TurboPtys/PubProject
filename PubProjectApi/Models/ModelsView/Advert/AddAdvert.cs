@@ -12,8 +12,8 @@ namespace PubProjectApi.Models.ModelsView.Advert
         public string Title { get; set; }
         public string Discription { get; set; }
         public DateTime DateEvent { get; set; }
-        public IFormFile F { get; set; }
+        public IFormFile File { get; set; }
         public Guid OwnerId { get; set; }
-        public FormFile File { get; set; } 
+        public string Tag { get; set; }
     }
 }

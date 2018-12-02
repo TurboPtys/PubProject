@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-PubProjectClient-B009037A-19C6-469C-96D9-010F21A535D5</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Advert\**" />
+    <Content Remove="Models\Advert\**" />
+    <EmbeddedResource Remove="Models\Advert\**" />
+    <None Remove="Models\Advert\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="jQuery.UI.Combined" Version="1.12.1" />
@@ -22,10 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PubProjectApi\PubProjectApi.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Advert\" />
   </ItemGroup>
 
 </Project>
