@@ -72,6 +72,15 @@ namespace PubProjectApi.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Edit")]
+        public async Task<IActionResult> Edit ([FromBody] NewUser user)
+        {
+           _gastronomicVenuesService.Edit(user.GastronomicVenue);
+
+            return Ok();
+        }
+
         public async Task Logout()
         {
             await _accountService.Logout();

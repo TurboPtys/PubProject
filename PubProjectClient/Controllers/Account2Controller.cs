@@ -45,26 +45,26 @@ namespace PubProjectClient.Controllers
         [AllowAnonymous]
         public IActionResult Login(Login login)
         {
-            _signInManager.SignOutAsync();
-            var result = _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
+           // _signInManager.SignOutAsync();
+           // var result = _signInManager.PasswordSignInAsync(login.Email, login.Password, false, lockoutOnFailure: false);
 
-            //string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Login";
-            //using (var client = new HttpClient())
-            //{
-            //    var jsonString = JsonConvert.SerializeObject(login);
-            //    var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-            //    var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
-
-            //    if (resp.IsSuccessStatusCode)
-            //    {
-            //        return View("../Home/Index");
-            //    }
-            //}
-            if (result.Result.Succeeded)
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Login";
+            using (var client = new HttpClient())
             {
-                return View("../Home/Index");
+                var jsonString = JsonConvert.SerializeObject(login);
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+
+                if (resp.IsSuccessStatusCode)
+                {
+                    return View("../Home/Index");
+                }
             }
+            //if (result.Result.Succeeded)
+            //{
+            //    return View("../Home/Index");
+            //}
 
             return View(login);
         }
@@ -116,5 +116,35 @@ namespace PubProjectClient.Controllers
             return View("Login");
         }
 
+
+        [HttpGet]
+        public IActionResult Edit(Guid id)
+        {
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/GetByUser/" + id.ToString();
+            using (var client = new HttpClient())
+            {
+                var resp = client.GetAsync(urlGeneratePdfPriceLists).GetAwaiter().GetResult();
+                string mycontent = resp.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                NewUser result = Newtonsoft.Json.JsonConvert.DeserializeObject<NewUser>(mycontent);
+                
+                return View(result);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(NewUser user)
+        {
+            string urlGeneratePdfPriceLists = "http://localhost:64832/api/Account/Edit";
+            using (var client = new HttpClient())
+            {
+                var jsonString = JsonConvert.SerializeObject(user);
+                var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                var resp = client.PostAsync(urlGeneratePdfPriceLists, content).Result;
+
+            }
+
+            return View(user.GastronomicVenue.UserId);
+        }
     }
 }

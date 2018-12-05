@@ -12,5 +12,6 @@ namespace PubProjectApi.Servies
         Task<GastronomicVenue> GetById(Guid id);
         void AddVenue(GastronomicVenue gastronomicVenue);
         Task<GastronomicVenue> GetByOwnerId(Guid id);
+        void Edit(GastronomicVenue venue);
     }
 }

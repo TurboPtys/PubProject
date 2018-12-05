@@ -26,11 +26,6 @@ namespace PubProjectApi.Models
             return await _context.Set<T>().ToListAsync();
         }
 
-        public virtual async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
-        {
-            return await _context.Set<T>().Where(predicate).ToListAsync();
-        }
-
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);

@@ -12,7 +12,7 @@
     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage"> Hello @UserManager.GetUserName(User)</a>
+                <a asp-area="" asp-controller="Account2" asp-action="Edit" asp-route-id=@UserManager.GetUserId(User) title="Manage">@UserManager.GetUserName(User)</a>
             </li>
             <li><a asp-area="" asp-controller="Account2" asp-action="Logout">Wyloguj</a></li>
 
@@ -22,7 +22,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account2" asp-action="Register">Register</a></li>
+        <li><a asp-area="" asp-controller="Account2" asp-action="Register">Rejestracja</a></li>
         <li><a asp-area="" asp-controller="Account2" asp-action="Login">Zaloguj</a></li>
     </ul>
 }

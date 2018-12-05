@@ -83,11 +83,8 @@ namespace PubProjectClient.Controllers
             string urlGeneratePdfPriceLists = "http://localhost:64832/api/Advertisement";
             using (var client = new HttpClient())
             {
-
-
                 try
                 {
-
 
                     byte[] data;
                     using (var br = new BinaryReader(advert.File.OpenReadStream()))
@@ -122,22 +119,6 @@ namespace PubProjectClient.Controllers
                 {
                     return StatusCode(500); // 500 is generic server error
                 }
-
-                //byte[] data;
-                //using (var br = new BinaryReader(advert.F.OpenReadStream()))
-                //    data = br.ReadBytes((int)advert.F.OpenReadStream().Length);
-
-                ////var jsonString = JsonConvert.SerializeObject(a);
-                ////var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-
-                
-                //ByteArrayContent bytes = new ByteArrayContent(data);
-                //MultipartFormDataContent multiContent = new MultipartFormDataContent();
-                //multiContent.Add(bytes, "file", advert.F.FileName);
-                //multiContent.Add(new StringContent(advert.DateEvent.ToString()), "DateEvent");
-                //multiContent.Add(new StringContent(advert.Discription), "Discription");
-
-                //var resp = client.PostAsync(urlGeneratePdfPriceLists, multiContent).Result;
 
                 return View();
             }

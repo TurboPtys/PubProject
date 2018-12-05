@@ -10,7 +10,6 @@ namespace PubProjectApi.Models
     {
         Task<T> GetById(Guid? id);
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);
         void Edit(T entity);

@@ -44,6 +44,14 @@ namespace PubProjectApi.Controllers
             return Ok(model);
         }
 
+        [HttpGet("GetByUser")]
+        public async Task<IActionResult> GetByUser(Guid id)
+        {
+            var gastronomicVenue = await _gastronomicVenuesService.GetByOwnerId(id);
+            var model = new NewUser { GastronomicVenue = gastronomicVenue };
+                
+            return Ok(model);
+        }
 
         [HttpPost]
         public void Post([FromBody] GastronomicVenue venue)

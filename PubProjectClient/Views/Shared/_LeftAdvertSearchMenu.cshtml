@@ -5,10 +5,17 @@
 
 @using (Html.BeginForm("Search", "Advert", FormMethod.Get, new { @class = "form-signin login-form", role = "form" }))
 {
-<form>
-    <h2 class="form-signin-heading">Wyszukaj Oefrty</h2>
+<form class="col-xs-8">
+    <h2 class="form-signin-heading">Wyszukaj Oferty</h2>
     @Html.TextBoxFor(m => m.SearchAdvert.City, new { @class = "form-control not-round input", placeholder = "Miasto", tabindex = 1 })
-    @Html.TextBoxFor(m => m.SearchAdvert.Date, new { @class = "datepicker form-control not-round input", type = "date" })
+    @* @Html.TextBoxFor(m => m.SearchAdvert.Date, new { @class = "datepicker form-control not-round input", type = "date" })*@
+    <select class="datepicker form-control not-round input" name="Tag" onchange="this.form.submit()">
+        <option value="" disabled selected>Wybierz datę oferty</option>
+    </select>
+    <select class="datepicker form-control not-round input" name="Tag" onchange="this.form.submit()">
+        <option value="" disabled selected>Wybierz typ oferty</option>
+    </select>
     <button class="btn btn-lg btn-primary btn-block not-round" type="submit">Szukaj</button>
+
 </form>
 }

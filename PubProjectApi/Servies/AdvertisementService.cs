@@ -24,7 +24,6 @@ namespace PubProjectApi.Servies
 
         public async Task<IEnumerable<Advertisement>> GetAll()
         {
-            //return await _advertisementRepository.GetAll();
             return await _advertRepository.GetAll();
         }
 

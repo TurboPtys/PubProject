@@ -1,0 +1,46 @@
+﻿@model PubProjectApi.Models.ModelsView.NewUser
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="content register-page">
+    <img class="page-background" id="page-background" src="~/images/Bar/2.jpg" />
+    @using (Html.BeginForm("Edit", "Account2", FormMethod.Post , new { @class = "form-signin register-form col-xs-5", role = "form" }))
+    {
+        <form>
+            <div class="form-group row bar-user">
+                <label class="col-sm-6 col-form-label text-center" id="RegVenBtn" onclick="RegVenBtnAction();">Lokal</label>
+                <label class="col-sm-6 col-form-label text-center RegCliButton" id="RegCliBtn" onclick="RegCliBtnAction();">Klient</label>
+            </div>
+            <h2 class="form-signin-heading col-xs-offset-1">Załóż Konto</h2>
+            <div class="form-group row">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Nazwa Lokalu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.GastronomicVenueName, new { @class = "form-control not-round input", id = "inputVenuName", placeholder = "Nazwa Lokalu", tabindex = 5 })
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Miasto</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.City, new { @class = "form-control not-round input", id = "inputCity", placeholder = "Miasto", tabindex = 5 })
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Ulica</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Street, new { @class = "form-control not-round input", id = "inputStreet", placeholder = "Ulica", tabindex = 5 })
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Nr Localu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.LocalNr, new { @class = "form-control not-round input", id = "inputHouseNr", placeholder = "Numer lokalu", tabindex = 5 })
+                    </div>
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <lable>Numer Telefonu</lable>
+                        @Html.TextBoxFor(m => m.GastronomicVenue.Phone, new { @class = "form-control not-round input", id = "inputPhone", placeholder = "Numer Telefonu", tabindex = 5 })
+                    </div>
+                <div class="col-xs-10 col-xs-offset-1">
+                    <button class="btn btn-lg btn-primary btn-block not-round" type="submit">Załadam Konto</button>
+                </div>
+            </div>
+
+        </form>
+    }
+</div>
+
+<script src="~/js/scripts.js"></script>

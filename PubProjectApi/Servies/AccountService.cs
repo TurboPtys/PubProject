@@ -42,7 +42,7 @@ namespace PubProjectApi.Servies
                     var userResult = await _userManager.AddToRoleAsync(user, Role);
                 }
                 //var aa = await _userManager.AddToRoleAsync(user, Role);
-               await _signInManager.PasswordSignInAsync(user.Email, Password, false, lockoutOnFailure: false);
+               var a = await _signInManager.PasswordSignInAsync(user.Email, Password, false, lockoutOnFailure: false);
             }
             return result;
         }

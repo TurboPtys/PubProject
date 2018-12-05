@@ -34,5 +34,10 @@ namespace PubProjectApi.Servies
         {
             return (await _gastronomicVenuesRepository.GetAll()).Where(x => x.UserId.Equals(id)).FirstOrDefault();
         }
+
+        public void Edit(GastronomicVenue venue)
+        {
+            _gastronomicVenuesRepository.Edit(venue);
+        }
     }
 }

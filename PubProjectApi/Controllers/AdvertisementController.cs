@@ -84,34 +84,6 @@ namespace PubProjectApi.Controllers
             return "value";
         }
 
-        // POST: api/Advertisement
-        //[HttpPost]
-        //public void Post([FromBody] AddAdvert advertisement)
-        //{
-
-        //    if (Request.HasFormContentType)
-        //    {
-        //        var form = Request.Form;
-        //        foreach (var formFile in form.Files)
-        //        {
-        //            var targetDirectory = Path.Combine( _environment.WebRootPath, "uploads");
-        //            var fileName = Path.Combine(_environment.WebRootPath, Path.GetFileName(advertisement.F.FileName));
-        //            //var fileName = GetFileName(formFile);
-
-        //            var savePath = Path.Combine(targetDirectory, fileName);
-
-        //            using (var fileStream = new FileStream(savePath, FileMode.Create))
-        //            {
-        //                formFile.CopyTo(fileStream);
-        //            }
-        //        }
-        //    }
-
-        //    var adv = new Advertisement { Title = advertisement.Title, Description = advertisement.Discription, EventDate = advertisement.DateEvent };
-        //    _advertisementServiecs.AddAdvert(adv);
-        //}
-
-
         [HttpPost]
         public async Task<IActionResult>  Post(AddAdvert advert)
         {
